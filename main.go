@@ -39,9 +39,9 @@ func initMongoDb() {
 	collection = client.Database("gomongo").Collection("users")
 }
 
-func respondWithError(w http.ResponseWriter, code int, message string) {
-	w.WriteHeader(code)
-	fmt.Fprintf(w, `{"error": "%s"}`, message)
+func respondWithError(response http.ResponseWriter, code int, message string) {
+	response.WriteHeader(code)
+	fmt.Fprintf(response, `{"error": "%s"}`, message)
 }
 
 func getUserByID(id string) (User, error) {
@@ -79,32 +79,49 @@ func getUsers() ([]User, error) {
 	return users, nil
 }
 
-func handleUsers(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+func updateUserByID(id string, updateUser User) (User, error) {
+	filter := bson.M{"id": id}
+	update := bson.M{
+		"$set": bson.M{
+			"name": updateUser.Name,
+			"age":  updateUser.Age,
+		},
+	}
 
-	switch r.Method {
+	_, err := collection.UpdateOne(ctx, filter, update)
+	if err != nil {
+		return User{}, err
+	}
+
+	return updateUser, nil
+}
+
+func handleUsers(response http.ResponseWriter, request *http.Request) {
+	response.Header().Set("Content-Type", "application/json")
+
+	switch request.Method {
 	case "GET":
-		id := r.URL.Query().Get("id")
+		id := request.URL.Query().Get("id")
 		if id != "" {
 			user, err := getUserByID(id)
 			if err != nil {
-				respondWithError(w, http.StatusNotFound, "User not found")
+				respondWithError(response, http.StatusNotFound, "User not found")
 				return
 			}
-			json.NewEncoder(w).Encode(user)
+			json.NewEncoder(response).Encode(user)
 		} else {
 			users, err := getUsers()
 			if err != nil {
-				respondWithError(w, http.StatusInternalServerError, "Internal server error")
+				respondWithError(response, http.StatusInternalServerError, "Internal server error")
 				return
 			}
-			json.NewEncoder(w).Encode(users)
+			json.NewEncoder(response).Encode(users)
 		}
 	case "POST":
 		var newUser User
-		err := json.NewDecoder(r.Body).Decode(&newUser)
+		err := json.NewDecoder(request.Body).Decode(&newUser)
 		if err != nil {
-			respondWithError(w, http.StatusBadRequest, "Invalid request payload")
+			respondWithError(response, http.StatusBadRequest, "Invalid request payload")
 			return
 		}
 
@@ -112,11 +129,36 @@ func handleUsers(w http.ResponseWriter, r *http.Request) {
 
 		_, err = collection.InsertOne(ctx, newUser)
 		if err != nil {
-			respondWithError(w, http.StatusInternalServerError, "Failed to create user")
+			respondWithError(response, http.StatusInternalServerError, "Failed to create user")
 			return
 		}
 
-		json.NewEncoder(w).Encode(newUser)
+		json.NewEncoder(response).Encode(newUser)
+	case "PUT":
+		id := request.URL.Query().Get("id")
+		if id != "" {
+			var updatedUser User
+			err := json.NewDecoder(request.Body).Decode(&updatedUser)
+			if err != nil {
+				respondWithError(response, http.StatusBadRequest, "Invalid request payload")
+				return
+			}
+
+			updatedUser.ID = id
+
+			user, err := updateUserByID(id, updatedUser)
+			if err != nil {
+				respondWithError(response, http.StatusInternalServerError, "Failed to update user")
+				return
+			}
+
+			json.NewEncoder(response).Encode(user)
+		} else {
+			respondWithError(response, http.StatusBadRequest, "ID is required for updating user")
+			return
+		}
+	default:
+		respondWithError(response, http.StatusMethodNotAllowed, "Method not allowed")
 	}
 }
 
