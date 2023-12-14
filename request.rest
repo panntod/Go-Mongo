@@ -2,13 +2,25 @@
 GET http://localhost:8080/users
 
 ### Get User by ID
-GET http://localhost:8080/users?id=657a7d15bcae5f5d44adf80e
+GET http://localhost:8080/users?id=657a8741e9a43aa1783c331f
 
 ### Create User
 POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-    "name": "Pandhu Arya",
+    "name": "Asfina Andini",
+    "age": 16
+}
+
+### Update User
+PUT http://localhost:8080/users?id=657a7cdcbcae5f5d44adf80c
+Content-Type: application/json
+
+{
+    "name": "test",
     "age": 17
 }
+
+### Delete User
+DELETE http://localhost:8080/users?id=657aef057558ba81ea55494a
