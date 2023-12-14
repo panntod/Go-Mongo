@@ -96,6 +96,15 @@ func updateUserByID(id string, updateUser User) (User, error) {
 	return updateUser, nil
 }
 
+func deleteUserByID(id string) error {
+	filter := bson.M{"id": id}
+	_, err := collection.DeleteOne(ctx, filter)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func handleUsers(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
 
@@ -155,6 +164,21 @@ func handleUsers(response http.ResponseWriter, request *http.Request) {
 			json.NewEncoder(response).Encode(user)
 		} else {
 			respondWithError(response, http.StatusBadRequest, "ID is required for updating user")
+			return
+		}
+	case "DELETE":
+		id := request.URL.Query().Get("id")
+		if id != "" {
+			err := deleteUserByID(id)
+			if err != nil {
+				respondWithError(response, http.StatusInternalServerError, "Failed to delete user")
+				return
+			}
+
+			response.WriteHeader(http.StatusOK)
+			fmt.Fprint(response, `"message": "User Delete Successfully`)
+		} else {
+			respondWithError(response, http.StatusNotFound, "ID is required for deleting user")
 			return
 		}
 	default:
