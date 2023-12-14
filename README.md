@@ -2,7 +2,7 @@
 
 ## Deskripsi
 
-Dalam repo ini, belajar pemrograman Golang menggunakan basis data MongoDB. mempelajari cara terhubung ke MongoDn, mengirim perintah MongoDb. Menggunakan database driver yang disediakan oleh Third-party dari [Go Mongo Developer](go.mongodb.org/mongo-driver).
+Dalam repo ini, belajar pemrograman Golang menggunakan basis data MongoDB. mempelajari cara terhubung ke MongoDb, mengirim perintah MongoDb. Menggunakan database driver yang disediakan oleh Third-party dari [Go Mongo Developer](go.mongodb.org/mongo-driver).
 
 ## Fitur
 
