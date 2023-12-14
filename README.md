@@ -9,6 +9,7 @@ Dalam repo ini, belajar pemrograman Golang menggunakan basis data MongoDB. mempe
 - Sistem CRUD
 - Akses MongoDB
 - Driver GO
+- Rest API
 
 ## Cara Membuat Aplikasi
 
