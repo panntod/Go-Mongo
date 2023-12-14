@@ -30,18 +30,11 @@ go mod init main
 
 Jalan kan perintah ini untuk mendapatkan package driver:
 ```go
-go get -u 
-github.com/golang/snappy 
-github.com/klauspost/compress 
-github.com/montanaflynn/stats 
-github.com/xdg-go/pbkdf2 
-github.com/xdg-go/scram 
-github.com/xdg-go/stringprep 
-github.com/youmark/pkcs8 
-go.mongodb.org/mongo-driver 
-golang.org/x/crypto 
-golang.org/x/sync 
-golang.org/x/text
+go get -u  go.mongodb.org/mongo-driver
+```
+atau jalankan perintah
+```go
+go mod tidy
 ```
 
 ### Langkah 4: 
