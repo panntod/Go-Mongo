@@ -16,9 +16,8 @@ Dalam repo ini, belajar pemrograman Golang menggunakan basis data MongoDB. mempe
 ### Langkah 1: 
 
 Pastikan sudah menginstal go.msi atau download menggunakan link ini:
-```
-https://go.dev/dl/go1.21.5.windows-amd64.msi
-```
+
+[Download Go for Windows](https://go.dev/dl/go1.21.5.windows-amd64.msi).
 
 ### Langkah 2: 
 
@@ -49,4 +48,4 @@ golang.org/x/text
 
 Buat Collection diMongoDB dengan Nama ``` Users ``` 
 
-atau Import dari [Collection Users](go.mongodb.org/mongo-driver).
+atau Import dari [Collection Users](https://github.com/panntod/Go-Mongo/tree/main/mongo).
