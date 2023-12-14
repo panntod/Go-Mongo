@@ -1,0 +1,14 @@
+### Get All Users
+GET http://localhost:8080/users
+
+### Get User by ID
+GET http://localhost:8080/users?id=657a7d15bcae5f5d44adf80e
+
+### Create User
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "name": "Pandhu Arya",
+    "age": 17
+}
