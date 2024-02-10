@@ -1,16 +1,16 @@
-# GO MongoDB
+# GO MongoDB 🚀
 
 ## Deskripsi
 
-Dalam repo ini, belajar pemrograman Golang menggunakan basis data MongoDB. mempelajari cara terhubung ke MongoDb, mengirim perintah MongoDb. Menggunakan database driver yang disediakan oleh Third-party dari [Go Mongo Developer](go.mongodb.org/mongo-driver).
+Dalam repo ini, belajar pemrograman Golang menggunakan basis data MongoDB. Mempelajari cara terhubung ke MongoDB, mengirim perintah MongoDB. Menggunakan database driver yang disediakan oleh Third-party dari [Go Mongo Developer](go.mongodb.org/mongo-driver).
 
 ## Fitur
 
-- Sistem CRUD
-- Akses MongoDB
-- Driver GO
-- Rest API
-
+- Sistem CRUD ✨
+- Akses MongoDB 📊
+- Driver GO 🚗
+- Rest API 🌐
+- 
 ## Cara Membuat Aplikasi
 
 ### Langkah 1: 
@@ -41,4 +41,4 @@ go mod tidy
 
 Buat Collection diMongoDB dengan Nama ``` Users ``` 
 
-atau Import dari [Collection Users](https://github.com/panntod/Go-Mongo/tree/main/mongo).
+atau Import dari [Collection Users](https://github.com/panntod/Go-Mongo/tree/main/mongo). 📥
